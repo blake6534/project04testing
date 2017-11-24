@@ -32,7 +32,7 @@ public final class StudentController implements DefenderController
 
 		for (int i = 0; i < actions.length; i++) {
 
-			actions[i] = ghostMotion(game, ghostMode(game, i), i);
+			actions[i] = distanceOptimizer(game, i, ghostMode(game, i));
 
 			/* structure for how to assign unique behaviors to defenders
 			if(i ==0){
@@ -55,15 +55,6 @@ public final class StudentController implements DefenderController
 		return actions;
 	}
 
-
-	//modularize and determine ghost motion
-	public static int ghostMotion(Game gameStatus, int ghostStrategy, int ghostNumber){
-		int defenderDirection;
-
-		defenderDirection = modeBasedDirection(gameStatus, ghostNumber, ghostStrategy);
-
-		return defenderDirection;
-	}
 
 	//assign the ghost to be either attacking or fleeing
 	public static int ghostMode(Game gameState, int ghostNumber){
@@ -100,39 +91,20 @@ public final class StudentController implements DefenderController
 		return vulnerable;
 	}
 	
-	//find direction pacMan last took
-	public static int getPlayerDirection(Game gameState){
-		int playerDirection;
-
-		playerDirection = gameState.getAttacker().getDirection();
-
-		return playerDirection;
-	}
 
 	//find the direction that will put optimize the ghosts distance to the player
-	public static int modeBasedDirection(Game gameState, int ghostNumber, int mode){
-		double upDistance;
-		double temporaryUp;
-
-		double downDistance;
-		double temporaryDown;
-
-		double leftDistance;
-		double temporaryLeft;
-
-		double rightDistance;
-		double temporaryRight;
+	public static int distanceOptimizer(Game gameState, int ghostNumber, int mode){
+		double upDistance, temporaryUp;
+		double downDistance, temporaryDown;
+		double leftDistance, temporaryLeft;
+		double rightDistance, temporaryRight;
 
 		int chosenDirection;
 
-		int ghostXValue;
-		int ghostYValue;
+		int ghostXValue, ghostYValue;
+		int playerXValue, playerYValue;
 
-		int playerXValue;
-		int playerYValue;
-
-		int convertedYplayer;
-		int convertedYGhost;
+		int convertedYplayer, convertedYGhost;
 
 		//for defender (x,y)
 		ghostXValue = gameState.getDefender(ghostNumber).getLocation().getX();
@@ -251,6 +223,15 @@ public final class StudentController implements DefenderController
 		return finalAction;
 	}
 
+	//find direction pacMan last took
+	public static int getPlayerDirection(Game gameState){
+		int playerDirection;
+
+		playerDirection = gameState.getAttacker().getDirection();
+
+		return playerDirection;
+	}
+
 
 
 
@@ -313,7 +294,7 @@ public final class StudentController implements DefenderController
  	the ghost exhibit a more cautious approach or start escaping. If the player is farther have the ghost attack more aggresively.
  	 */
 
- 	/*defender method 2 idea: tMotion(game, i): instead of the tradtional distance formula, utilize only horizontal or vertical distances
+ 	/*defender method 3 idea: tMotion(game, i): instead of the tradtional distance formula, utilize only horizontal or vertical distances
  	from the player to the ghost. This would mean to first determine whether the ghost is vulnerable. If the ghost is vulnerable determine
  	which direction (vertical or horizontal) would maximize the ghosts distance from the player, have the ghost then adopt this motion. If
  	the ghost is not vulnerable, determine which direction (vertical or horizontal) would minmize the ghosts distance to the player. Have

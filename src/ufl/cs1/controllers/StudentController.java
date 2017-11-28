@@ -24,13 +24,12 @@ public final class StudentController implements DefenderController
 		if (this.previousGameState == null) {
 			this.previousGameState = game;
 		}
-
-
+		
 		int[] actions = new int[Game.NUM_DEFENDER];
 
 		for (int i = 0; i < actions.length; i++) {
 
-			actions[i] = distanceOptimizer(game, i, ghostMode(game, i));
+			actions[i] = distanceOptimizer(game, i);
 
 			/* structure for how to assign unique behaviors to defenders
 			if(i ==0){
@@ -53,33 +52,18 @@ public final class StudentController implements DefenderController
 		return actions;
 	}
 
-	//assign the ghost to be either attacking or fleeing
-	public static int ghostMode(Game gameState, int ghostNumber){
-		//for mode
-		int mode;
-
-		//determine if ghost is vulnerable
-		if(gameState.getDefender(ghostNumber).isVulnerable()) {
-			mode = 0;	//run away from pacman
-		}
-		else{
-			mode = 1;	//chase pacman
-		}
-
-		return mode;
-	}
 
 	//find the direction that will put optimize the ghosts distance to the player
-	public static int distanceOptimizer(Game gameState, int ghostNumber, int mode){
+	public static int distanceOptimizer(Game gameState, int ghostNumber){
+		int chosenDirection;
+
 		double upDistance, temporaryUp;
 		double downDistance, temporaryDown;
 		double leftDistance, temporaryLeft;
 		double rightDistance, temporaryRight;
 
-		int chosenDirection;
-
-		int ghostXValue, ghostYValue;
-		int playerXValue, playerYValue;
+		int ghostXValue, ghostYValue;		//ghost (x,y)
+		int playerXValue, playerYValue;		//player (x,y)
 
 		int convertedYplayer, convertedYGhost;
 
@@ -108,8 +92,8 @@ public final class StudentController implements DefenderController
 		leftDistance = distanceCalculator(temporaryLeft, convertedYGhost, playerXValue, convertedYplayer);
 		rightDistance = distanceCalculator(temporaryRight, convertedYGhost, playerXValue, convertedYplayer);
 
-		//small chain to determine the mode (going to / going away from) of the ghosts
-		if(mode == 0) {
+		//small chain to apply the mode (going to / going away from) of the ghosts
+		if(gameState.getDefender(ghostNumber).isVulnerable()) {
 			chosenDirection = getMaximum(upDistance, downDistance, leftDistance, rightDistance);
 		}
 		else{
@@ -119,7 +103,7 @@ public final class StudentController implements DefenderController
 		return chosenDirection;
 	}
 
-	//Y value conversion into a normal cartesian system, account for inverse y-values
+	//Y value conversion into a normal cartesian system, accounts for inverse y-values
 	public static int yConverter(int yValue){
 		int intermediateVar;
 		int convertedY;
@@ -225,7 +209,6 @@ public final class StudentController implements DefenderController
 		closestPowerPillDistancePlayer = powerPillsNodesPlayer[0];
 		closestPowerPillDistanceGhost = powerPillsNodesGhost[0];
 
-
 		//closest Power Pill
 		proximityPlayer = closestPowerPillDistancePlayer;
 		proximityGhost = closestPowerPillDistanceGhost;
@@ -250,6 +233,22 @@ public final class StudentController implements DefenderController
 		playerDirection = gameState.getAttacker().getDirection();
 
 		return playerDirection;
+	}
+
+	//assign the ghost to be either attacking or fleeing- i didnt use this either however this may be useful to avoid repeated code later - blake
+	public static int ghostMode(Game gameState, int ghostNumber){
+		//for mode
+		int mode;
+
+		//determine if ghost is vulnerable
+		if(gameState.getDefender(ghostNumber).isVulnerable()) {
+			mode = 0;	//run away from pacman
+		}
+		else{
+			mode = 1;	//chase pacman
+		}
+
+		return mode;
 	}
 
 

@@ -15,7 +15,6 @@ public final class StudentController implements DefenderController
 	Game currentGameState;
 	Game previousGameState;
 
-
 	public void init(Game game) { }
 
 	public void shutdown(Game game) { }
@@ -26,7 +25,6 @@ public final class StudentController implements DefenderController
 			this.previousGameState = game;
 		}
 
-		Maze mazeStatus = game.getCurMaze();
 
 		int[] actions = new int[Game.NUM_DEFENDER];
 
@@ -36,7 +34,7 @@ public final class StudentController implements DefenderController
 
 			/* structure for how to assign unique behaviors to defenders
 			if(i ==0){
-			actions[0] = ghostMotion(game, ghostMode(game, i), i);
+			actions[0] = distanceOptimizer(game, i, ghostMode(game, i));
 			}
 			else if(i == 1){
 			actions[1] = defender method 2
@@ -55,13 +53,13 @@ public final class StudentController implements DefenderController
 		return actions;
 	}
 
-
 	//assign the ghost to be either attacking or fleeing
 	public static int ghostMode(Game gameState, int ghostNumber){
 		//for mode
 		int mode;
 
-		if(getVulnerability(gameState, ghostNumber)) {
+		//determine if ghost is vulnerable
+		if(gameState.getDefender(ghostNumber).isVulnerable()) {
 			mode = 0;	//run away from pacman
 		}
 		else{
@@ -70,27 +68,6 @@ public final class StudentController implements DefenderController
 
 		return mode;
 	}
-
-	//determine if ghost is vulnerable
-	public static boolean getVulnerability(Game gameState, int ghostNumber){
-		boolean vulnerable;
-
-		int numberOfPowerPills;
-
-		Maze mazeState = gameState.getCurMaze();
-
-		numberOfPowerPills = mazeState.getNumberPowerPills();
-
-		if((gameState.getDefender(ghostNumber).isVulnerable()) && (numberOfPowerPills < 4)){
-			vulnerable = true;
-		}
-		else{
-			vulnerable = false;
-		}
-
-		return vulnerable;
-	}
-	
 
 	//find the direction that will put optimize the ghosts distance to the player
 	public static int distanceOptimizer(Game gameState, int ghostNumber, int mode){
@@ -114,17 +91,11 @@ public final class StudentController implements DefenderController
 		playerXValue = gameState.getAttacker().getLocation().getX();
 		playerYValue = gameState.getAttacker().getLocation().getY();
 
-		/*in the map y coordinates increase in value opposite of the way we find in a cartesian system, as a result
-		the y coordinates for both ghost and player entities need to be converted into a cartesian system using the algorithim
-		that is modularized below; note  that a y value of 58 is the midpoint
-		 */
-
 		//conversion for ghost y coordinate
 		convertedYGhost = yConverter(ghostYValue);
 
 		//conversion for player y coordinate
 		convertedYplayer = yConverter(playerYValue);
-
 
 		//find which direction would optimize the distance to the player
 		temporaryUp = convertedYGhost + 1;
@@ -139,7 +110,7 @@ public final class StudentController implements DefenderController
 
 		//small chain to determine the mode (going to / going away from) of the ghosts
 		if(mode == 0) {
-			chosenDirection = getMaximum(upDistance, downDistance, leftDistance, rightDistance, gameState);
+			chosenDirection = getMaximum(upDistance, downDistance, leftDistance, rightDistance);
 		}
 		else{
 			chosenDirection = getMinimum(upDistance, downDistance, leftDistance, rightDistance);
@@ -148,7 +119,7 @@ public final class StudentController implements DefenderController
 		return chosenDirection;
 	}
 
-	//Y value conversion into a normal cartesian system
+	//Y value conversion into a normal cartesian system, account for inverse y-values
 	public static int yConverter(int yValue){
 		int intermediateVar;
 		int convertedY;
@@ -167,7 +138,6 @@ public final class StudentController implements DefenderController
 
 		return convertedY;
 	}
-
 
 	//use standard cartesian distance formula
 	public static double distanceCalculator(double x1, double y1, double x2, double y2){
@@ -200,8 +170,8 @@ public final class StudentController implements DefenderController
 	}
 
 	//find the largest of 4 distances
-	public static int getMaximum(double up, double down, double left, double right, Game gameState){
-		int finalAction;
+	public static int getMaximum(double up, double down, double left, double right){
+		int finalAction= -1;
 
 		//assign a direction based on which would increase the distance the most
 		if((up == Math.max(up, down)) && (up == Math.max(up, left)) && (up == Math.max(up, right))){
@@ -216,21 +186,10 @@ public final class StudentController implements DefenderController
 		else if((right == Math.max(right, up)) && (right == Math.max(right, left)) && (right == Math.max(right, down))){
 			finalAction = 1;
 		}
-		else{
-			finalAction = getPlayerDirection(gameState);
-		}
 
 		return finalAction;
 	}
 
-	//find direction pacMan last took
-	public static int getPlayerDirection(Game gameState){
-		int playerDirection;
-
-		playerDirection = gameState.getAttacker().getDirection();
-
-		return playerDirection;
-	}
 
 
 
@@ -282,8 +241,19 @@ public final class StudentController implements DefenderController
 		return proximity;
 	}
 
+	/*find direction pacMan last took, this can also be done by just using the code in the method,
+	i also didnt use this but it might still be helpful- blake
+	 */
+	public static int getPlayerDirection(Game gameState){
+		int playerDirection;
 
-	//defender method 0 == blake = ghostMotion(game, i)
+		playerDirection = gameState.getAttacker().getDirection();
+
+		return playerDirection;
+	}
+
+
+	//defender method 0 == blake = distanceOptimizer(game, i, mode)
 
  	/*defender method 1 idea: goTo(game, i): if the ghost is vulnerable have the defender go to a specific corner, if the ghost is not
  	vulnerable, have the defender go to the ghost

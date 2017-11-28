@@ -63,7 +63,7 @@ public final class StudentController implements DefenderController
 		double rightDistance, temporaryRight;
 
 		int ghostXValue, ghostYValue;		//ghost (x,y)
-		int playerXValue, playerYValue;		//player (x,y)
+		int playerXValue, playerYValue;		//attacker (x,y)
 
 		int convertedYplayer, convertedYGhost;
 
@@ -103,6 +103,27 @@ public final class StudentController implements DefenderController
 		return chosenDirection;
 	}
 
+	//method to place defender in front of ghost based on rectangular abstraction
+	public static int getInFrontOf(){
+		int direction = -1;
+
+		return direction;
+	}
+
+	//method to place defender behind ghost based on rectangular abstraction
+	public static int getBehind(){
+		int direction = -1;
+
+		return direction;
+	}
+
+	//method to make defender always chase attacker
+	public static int alwaysChasing(){
+		int direction = -1;
+
+		return direction;
+	}
+
 	//Y value conversion into a normal cartesian system, accounts for inverse y-values
 	public static int yConverter(int yValue){
 		int intermediateVar;
@@ -127,7 +148,7 @@ public final class StudentController implements DefenderController
 	public static double distanceCalculator(double x1, double y1, double x2, double y2){
 		double distance;
 
-		distance =  Math.pow((Math.pow((x2 - x1), 2.0) + (Math.pow((y2 - y1), 2.0))), 0.50);
+		distance =  Math.sqrt((Math.pow((x2 - x1), 2.0) + (Math.pow((y2 - y1), 2.0))));
 
 		return distance;
 	}
@@ -136,7 +157,7 @@ public final class StudentController implements DefenderController
 	public static int getMinimum(double up, double down, double left, double right){
 		int finalAction = -1;
 
-		//assign a direction based on which would reduce the distance the most
+		//assign a direction based on which would reduce the distance to the attacker the most
 		if((up == Math.min(up, down)) && (up == Math.min(up, left)) && (up == Math.min(up, right))){
 			finalAction = 0;
 		}
@@ -157,7 +178,7 @@ public final class StudentController implements DefenderController
 	public static int getMaximum(double up, double down, double left, double right){
 		int finalAction= -1;
 
-		//assign a direction based on which would increase the distance the most
+		//assign a direction based on which would increase the distance to the attacker the most
 		if((up == Math.max(up, down)) && (up == Math.max(up, left)) && (up == Math.max(up, right))){
 			finalAction = 0;
 		}
@@ -173,6 +194,7 @@ public final class StudentController implements DefenderController
 
 		return finalAction;
 	}
+
 
 
 
@@ -250,26 +272,5 @@ public final class StudentController implements DefenderController
 
 		return mode;
 	}
-
-
-	//defender method 0 == blake = distanceOptimizer(game, i, mode)
-
- 	/*defender method 1 idea: goTo(game, i): if the ghost is vulnerable have the defender go to a specific corner, if the ghost is not
- 	vulnerable, have the defender go to the ghost
- 	 */
-
- 	/* defender method 2 idea: cautiousMotion(game, i): if the ghost is vulnerable have it maximize its distance normally, but if the
- 	ghost is not vulnerable have it check to find the players proximity to the nearest power pill. If the player is closer have
- 	the ghost exhibit a more cautious approach or start escaping. If the player is farther have the ghost attack more aggresively.
- 	 */
-
- 	/*defender method 3 idea: tMotion(game, i): instead of the tradtional distance formula, utilize only horizontal or vertical distances
- 	from the player to the ghost. This would mean to first determine whether the ghost is vulnerable. If the ghost is vulnerable determine
- 	which direction (vertical or horizontal) would maximize the ghosts distance from the player, have the ghost then adopt this motion. If
- 	the ghost is not vulnerable, determine which direction (vertical or horizontal) would minmize the ghosts distance to the player. Have
- 	the ghost then follow this motion. This method is very similar to the one i used here so it would probably have to be modified more.
- 	 */
-
-
 
 }

@@ -23,8 +23,8 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="116" column="25" lean-forward="false" selection-start-line="116" selection-start-column="25" selection-end-line="116" selection-end-column="25" />
+            <state relative-caret-position="2059">
+              <caret line="261" column="0" lean-forward="true" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -166,10 +166,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="37" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="38" />
     <option name="y" value="23" />
-    <option name="width" value="1243" />
+    <option name="width" value="1242" />
     <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -188,8 +188,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -290,8 +288,10 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -815,7 +815,8 @@
       <workItem from="1511894942564" duration="190000" />
       <workItem from="1511895888250" duration="1423000" />
       <workItem from="1511897518982" duration="189000" />
-      <workItem from="1511898449379" duration="546000" />
+      <workItem from="1511898449379" duration="758000" />
+      <workItem from="1511903240083" duration="3688000" />
     </task>
     <task id="LOCAL-00001" summary="Updated with behavior for defender 0">
       <created>1511471900134</created>
@@ -852,18 +853,26 @@
       <option name="project" value="LOCAL" />
       <updated>1511897134166</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added method headers for defenders[1,3] directions and method for defender 3">
+      <created>1511899019041</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1511899019041</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157121000" />
+    <option name="totallyTimeSpent" value="161021000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="37" y="23" width="1243" height="777" extended-state="6" />
+    <frame x="38" y="23" width="1242" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33806565" sideWeight="0.43629086" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -874,7 +883,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18984179" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1925" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24979185" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -888,7 +897,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33806565" sideWeight="0.43629086" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7102713" sideWeight="0.49353796" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -970,7 +978,8 @@
     <MESSAGE value="updated defender 0 behavior- even better now" />
     <MESSAGE value="cleaned up defender 0 and put unused methods at the bottom" />
     <MESSAGE value="added method headers for defenders[1,3] directions" />
-    <option name="LAST_COMMIT_MESSAGE" value="added method headers for defenders[1,3] directions" />
+    <MESSAGE value="added method headers for defenders[1,3] directions and method for defender 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="added method headers for defenders[1,3] directions and method for defender 3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1121,24 +1130,10 @@
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/util/Random.java" />
-    <entry file="file://$PROJECT_DIR$/System/game/models/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="57" column="127" lean-forward="false" selection-start-line="57" selection-start-column="127" selection-end-line="57" selection-end-column="127" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/System/game/system/_Game_.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/System/game/system/_Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="826">
-          <caret line="169" column="30" lean-forward="false" selection-start-line="169" selection-start-column="30" selection-end-line="169" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1229,10 +1224,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/System/game/system/_Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1669">
+          <caret line="169" column="30" lean-forward="false" selection-start-line="169" selection-start-column="30" selection-end-line="169" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/System/game/models/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="57" column="127" lean-forward="false" selection-start-line="57" selection-start-column="127" selection-end-line="57" selection-end-column="127" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="116" column="25" lean-forward="false" selection-start-line="116" selection-start-column="25" selection-end-line="116" selection-end-column="25" />
+        <state relative-caret-position="2059">
+          <caret line="261" column="0" lean-forward="true" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
           <folding />
         </state>
       </provider>

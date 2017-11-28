@@ -29,32 +29,27 @@ public final class StudentController implements DefenderController
 
 		for (int i = 0; i < actions.length; i++) {
 
-			actions[i] = distanceOptimizer(game, i);
-
-			//commented out platform to implement each behavior
-//			if(i ==0){
-//			actions[0] = distanceOptimizer(game, i);
-//			}
-//			else if(i == 1){
-//			actions[1] = getInFront(game, i);
-//			}
-//			else if(i == 2 ){
-//			actions[2] = getBehind(game, i);
-//			}
-//			else if(i ==3){
-//			actions[3] = alwaysChasing(game, i);
-//			}
-
-
+			//assign unique behaviors to defenders
+			if(i ==0){
+			actions[0] = carefulChaser(game, i);
+			}
+			else if(i == 1){
+			actions[1] = getInFront(game, i);
+			}
+			else if(i == 2 ){
+			actions[2] = getBehind(game, i);
+			}
+			else if(i ==3){
+			actions[3] = alwaysChasing(game, i);
+			}
 		}
 
 		this.previousGameState = this.currentGameState;
 		return actions;
 	}
 
-
-	//find the direction that will put optimize the ghosts distance to the player; defender 0
-	public static int distanceOptimizer(Game gameState, int ghostNumber){
+	//find the direction that will optimize the ghosts distance to the player; defender 0
+	public static int carefulChaser(Game gameState, int ghostNumber){
 		int chosenDirection;
 
 		double upDistance, temporaryUp;
@@ -65,8 +60,6 @@ public final class StudentController implements DefenderController
 		int ghostXValue, ghostYValue;		//ghost (x,y)
 		int playerXValue, playerYValue;		//attacker (x,y)
 
-		int convertedYplayer, convertedYGhost;
-
 		//for defender (x,y)
 		ghostXValue = gameState.getDefender(ghostNumber).getLocation().getX();
 		ghostYValue = gameState.getDefender(ghostNumber).getLocation().getY();
@@ -76,21 +69,21 @@ public final class StudentController implements DefenderController
 		playerYValue = gameState.getAttacker().getLocation().getY();
 
 		//conversion for ghost y coordinate
-		convertedYGhost = yConverter(ghostYValue);
+		ghostYValue = yConverter(ghostYValue);
 
 		//conversion for player y coordinate
-		convertedYplayer = yConverter(playerYValue);
+		playerYValue = yConverter(playerYValue);
 
 		//find which direction would optimize the distance to the player
-		temporaryUp = convertedYGhost + 1;
-		temporaryDown = convertedYGhost - 1;
+		temporaryUp = ghostYValue + 1;
+		temporaryDown = ghostYValue - 1;
 		temporaryLeft = ghostXValue - 1;
 		temporaryRight = ghostXValue + 1;
 
-		upDistance = distanceCalculator(ghostXValue, temporaryUp, playerXValue, convertedYplayer);
-		downDistance = distanceCalculator(ghostXValue, temporaryDown, playerXValue, convertedYplayer);
-		leftDistance = distanceCalculator(temporaryLeft, convertedYGhost, playerXValue, convertedYplayer);
-		rightDistance = distanceCalculator(temporaryRight, convertedYGhost, playerXValue, convertedYplayer);
+		upDistance = distanceCalculator(ghostXValue, temporaryUp, playerXValue, playerYValue);
+		downDistance = distanceCalculator(ghostXValue, temporaryDown, playerXValue, playerYValue);
+		leftDistance = distanceCalculator(temporaryLeft, ghostYValue, playerXValue, playerYValue);
+		rightDistance = distanceCalculator(temporaryRight, ghostYValue, playerXValue, playerYValue);
 
 		//small chain to apply the mode (going to / going away from) of the ghosts
 		if(gameState.getDefender(ghostNumber).isVulnerable()) {
@@ -103,16 +96,162 @@ public final class StudentController implements DefenderController
 		return chosenDirection;
 	}
 
-	//method to place defender in front of ghost based on rectangular abstraction; defender 1
-	public static int getInFront(Game gameStatues, int ghostNumber){
-		int direction = -1;
+	//find the direction to place defender in front of ghost; defender 1
+	public static int getInFront(Game gameStatus, int ghostNumber){
+		int direction;
+
+		int defenderX, defenderY;
+		int playerX, playerY;
+		int targetX, targetY;
+
+		int playerDirection;
+
+		double upDistance, temporaryUp;
+		double downDistance, temporaryDown;
+		double leftDistance, temporaryLeft;
+		double rightDistance, temporaryRight;
+
+		//defender (x,y)
+		defenderX = gameStatus.getDefender(ghostNumber).getLocation().getX();
+		defenderY = gameStatus.getDefender(ghostNumber).getLocation().getY();
+
+		//player (x,y)
+		playerX = gameStatus.getAttacker().getLocation().getX();
+		playerY = gameStatus.getAttacker().getLocation().getY();
+
+		//convert Y to actual
+		defenderY = yConverter(defenderY);
+		playerY = yConverter(playerY);
+
+		//find player direction
+		playerDirection = gameStatus.getAttacker().getDirection();
+
+		//optimal targeting point based on where the player is facing
+		if(playerDirection == 0){
+			targetX = playerX;
+			targetY = playerY + 4;
+		}
+		else if(playerDirection == 1){
+			targetX = playerX + 4;
+			targetY = playerY;
+
+		}
+		else if(playerDirection == 2){
+			targetX = playerX;
+			targetY = playerY - 4;
+
+		}
+		else if (playerDirection == 3){
+			targetX = playerX - 4;
+			targetY = playerY;
+		}
+		else{
+			targetX = playerX;
+			targetY = playerY;
+		}
+
+		//find direction to optimize distance to target direction in front of player
+		temporaryUp = defenderY + 1;
+		temporaryDown = defenderY - 1;
+		temporaryLeft = defenderX - 1;
+		temporaryRight = defenderX + 1;
+
+		upDistance = distanceCalculator(defenderX, temporaryUp, targetX, targetY);
+		downDistance = distanceCalculator(defenderX, temporaryDown, targetX, targetY);
+		leftDistance = distanceCalculator(temporaryLeft, defenderY, targetX, targetY);
+		rightDistance = distanceCalculator(temporaryRight, defenderY, targetX, targetY);
+
+		//determine what to do if vulnerable or close to defender
+		if(gameStatus.getDefender(ghostNumber).isVulnerable()){
+			direction = carefulChaser(gameStatus, ghostNumber);
+		}
+		else{
+			if(distanceCalculator(playerX, playerY, defenderX, defenderY) <= 4){
+				direction = carefulChaser(gameStatus, ghostNumber);
+			}
+			else{
+				direction = getMinimum(upDistance, downDistance, leftDistance, rightDistance);
+			}
+		}
 
 		return direction;
 	}
 
-	//method to place defender behind ghost based on rectangular abstraction; defender 2
+	//find direction to place defender behind ghost; defender 2
 	public static int getBehind(Game gameStatus, int ghostNumber){
 		int direction = -1;
+
+		int defenderX, defenderY;
+		int playerX, playerY;
+		int targetX, targetY;
+
+		int playerDirection;
+
+		double upDistance, temporaryUp;
+		double downDistance, temporaryDown;
+		double leftDistance, temporaryLeft;
+		double rightDistance, temporaryRight;
+
+		//defender (x,y)
+		defenderX = gameStatus.getDefender(ghostNumber).getLocation().getX();
+		defenderY = gameStatus.getDefender(ghostNumber).getLocation().getY();
+
+		//player (x,y)
+		playerX = gameStatus.getAttacker().getLocation().getX();
+		playerY = gameStatus.getAttacker().getLocation().getY();
+
+		//convert Y to actual
+		defenderY = yConverter(defenderY);
+		playerY = yConverter(playerY);
+
+		//find player direction
+		playerDirection = gameStatus.getAttacker().getDirection();
+
+		//optimal targeting point based on where the attacker is facing
+		if(playerDirection == 0){
+			targetX = playerX;
+			targetY = playerY - 4;
+		}
+		else if(playerDirection == 1){
+			targetX = playerX - 4;
+			targetY = playerY;
+		}
+		else if(playerDirection == 2){
+			targetX = playerX;
+			targetY = playerY + 4;
+		}
+		else if (playerDirection == 3){
+			targetX = playerX + 4;
+			targetY = playerY;
+		}
+		else{
+			targetX = playerX;
+			targetY = playerY;
+		}
+
+		//find direction to optimize distance to target direction behind player
+		temporaryUp = defenderY + 1;
+		temporaryDown = defenderY - 1;
+		temporaryLeft = defenderX - 1;
+		temporaryRight = defenderX + 1;
+
+		upDistance = distanceCalculator(defenderX, temporaryUp, targetX, targetY);
+		downDistance = distanceCalculator(defenderX, temporaryDown, targetX, targetY);
+		leftDistance = distanceCalculator(temporaryLeft, defenderY, targetX, targetY);
+		rightDistance = distanceCalculator(temporaryRight, defenderY, targetX, targetY);
+
+		//determine what to do if vulnerable or close to defender
+		if(gameStatus.getDefender(ghostNumber).isVulnerable()){
+			direction = carefulChaser(gameStatus, ghostNumber);
+		}
+		else{
+			if(distanceCalculator(playerX, playerY, defenderX, defenderY) <= 4){
+				direction = carefulChaser(gameStatus, ghostNumber);
+			}
+			else{
+				direction = getMinimum(upDistance, downDistance, leftDistance, rightDistance);
+			}
+		}
 
 		return direction;
 	}
@@ -190,11 +329,11 @@ public final class StudentController implements DefenderController
 		return distance;
 	}
 
-	//find the smallest of 4 distances
+	//find the smallest distance that would occur if the ghost moves in a given direction
 	public static int getMinimum(double up, double down, double left, double right){
 		int finalAction = -1;
 
-		//assign a direction based on which would reduce the distance to the attacker the most
+		//assign a direction based on which direction would reduce the distance to the attacker the most
 		if((up == Math.min(up, down)) && (up == Math.min(up, left)) && (up == Math.min(up, right))){
 			finalAction = 0;
 		}
@@ -211,11 +350,11 @@ public final class StudentController implements DefenderController
 		return finalAction;
 	}
 
-	//find the largest of 4 distances
+	//find the largest distance that would occur if the ghost moves in a given direction
 	public static int getMaximum(double up, double down, double left, double right){
 		int finalAction= -1;
 
-		//assign a direction based on which would increase the distance to the attacker the most
+		//assign a direction based on which direction would increase the distance to the attacker the most
 		if((up == Math.max(up, down)) && (up == Math.max(up, left)) && (up == Math.max(up, right))){
 			finalAction = 0;
 		}
@@ -230,84 +369,6 @@ public final class StudentController implements DefenderController
 		}
 
 		return finalAction;
-	}
-
-
-
-
-
-
-	//determine the player or the ghost is closer to a powerPill, I didnt use this for my method but you guys might be able to - blake
-	public static boolean powerPillProximity(Game gameState, int ghostNumber, Maze mazeState){
-		boolean proximity;
-
-		double proximityPlayer;
-		double proximityGhost;
-
-		List<Node> powerPills;
-
-		double closestPowerPillDistancePlayer;
-		double closestPowerPillDistanceGhost;
-
-		//for finding remaining power pills
-		powerPills = mazeState.getPowerPillNodes();
-
-		int [] powerPillsNodesPlayer = new int[powerPills.size()];
-		int [] powerPillsNodesGhost = new int [powerPills.size()];
-
-		if(powerPills.size() != 0){
-			for(int i = 0; i < powerPills.size(); i++) {
-				powerPillsNodesPlayer[i] = gameState.getAttacker().getLocation().getPathDistance(powerPills.get(i));
-				powerPillsNodesGhost[i] = gameState.getDefender(ghostNumber).getLocation().getPathDistance(powerPills.get(i));
-			}
-			Arrays.sort(powerPillsNodesPlayer);
-			Arrays.sort(powerPillsNodesGhost);
-		}
-
-		//shortest distances
-		closestPowerPillDistancePlayer = powerPillsNodesPlayer[0];
-		closestPowerPillDistanceGhost = powerPillsNodesGhost[0];
-
-		//closest Power Pill
-		proximityPlayer = closestPowerPillDistancePlayer;
-		proximityGhost = closestPowerPillDistanceGhost;
-
-		//if the player is closer to the power pill, the ghost needs to start escaping
-		if(proximityPlayer == Math.min(proximityPlayer, proximityGhost)){
-			proximity = true;
-		}
-		else{
-			proximity = false;
-		}
-
-		return proximity;
-	}
-
-	/*find direction pacMan last took, this can also be done by just using the code in the method,
-	i also didnt use this but it might still be helpful- blake
-	 */
-	public static int getPlayerDirection(Game gameState){
-		int playerDirection;
-
-		playerDirection = gameState.getAttacker().getDirection();
-
-		return playerDirection;
-	}
-
-	//assign the ghost to be either attacking or fleeing- i didnt use this either however this may be useful to avoid repeated code later - blake
-	public static int ghostMode(Game gameState, int ghostNumber){
-		//for mode
-		int mode;
-
-		//determine if ghost is vulnerable
-		if(gameState.getDefender(ghostNumber).isVulnerable()) {
-			mode = 0;	//run away from pacman
-		}
-		else{
-			mode = 1;	//chase pacman
-		}
-
-		return mode;
 	}
 
 }

@@ -31,20 +31,20 @@ public final class StudentController implements DefenderController
 
 			actions[i] = distanceOptimizer(game, i);
 
-			/* structure for how to assign unique behaviors to defenders
-			if(i ==0){
-			actions[0] = distanceOptimizer(game, i, ghostMode(game, i));
-			}
-			else if(i == 1){
-			actions[1] = defender method 2
-			}
-			else if(i == 2 ){
-			actions[2] = defender method 3
-			}
-			else if(i ==3){
-			actions[3] = defender method 4
-			}
-			 */
+			//commented out platform to implement each behavior
+//			if(i ==0){
+//			actions[0] = distanceOptimizer(game, i);
+//			}
+//			else if(i == 1){
+//			actions[1] = getInFront(game, i);
+//			}
+//			else if(i == 2 ){
+//			actions[2] = getBehind(game, i);
+//			}
+//			else if(i ==3){
+//			actions[3] = alwaysChasing(game, i);
+//			}
+
 
 		}
 
@@ -53,7 +53,7 @@ public final class StudentController implements DefenderController
 	}
 
 
-	//find the direction that will put optimize the ghosts distance to the player
+	//find the direction that will put optimize the ghosts distance to the player; defender 0
 	public static int distanceOptimizer(Game gameState, int ghostNumber){
 		int chosenDirection;
 
@@ -103,23 +103,60 @@ public final class StudentController implements DefenderController
 		return chosenDirection;
 	}
 
-	//method to place defender in front of ghost based on rectangular abstraction
-	public static int getInFrontOf(){
+	//method to place defender in front of ghost based on rectangular abstraction; defender 1
+	public static int getInFront(Game gameStatues, int ghostNumber){
 		int direction = -1;
 
 		return direction;
 	}
 
-	//method to place defender behind ghost based on rectangular abstraction
-	public static int getBehind(){
+	//method to place defender behind ghost based on rectangular abstraction; defender 2
+	public static int getBehind(Game gameStatus, int ghostNumber){
 		int direction = -1;
 
 		return direction;
 	}
 
-	//method to make defender always chase attacker
-	public static int alwaysChasing(){
-		int direction = -1;
+	//method to make defender always chase attacker; defender 3
+	public static int alwaysChasing(Game gameStatus, int ghostNumber){
+		int direction;
+
+		double upDistance, tempUp;
+		double downDistance, tempDown;
+		double leftDistance, tempLeft;
+		double rightDistance, tempRight;
+
+		int ghostXValue, ghostYValue;		//ghost (x,y)
+		int playerXValue, playerYValue;		//attacker (x,y)
+
+		int convertedYplayer, convertedYGhost;
+
+		//for defender (x,y)
+		ghostXValue = gameStatus.getDefender(ghostNumber).getLocation().getX();
+		ghostYValue = gameStatus.getDefender(ghostNumber).getLocation().getY();
+
+		//for player (x,y)
+		playerXValue = gameStatus.getAttacker().getLocation().getX();
+		playerYValue = gameStatus.getAttacker().getLocation().getY();
+
+		//conversion for ghost y coordinate
+		convertedYGhost = yConverter(ghostYValue);
+
+		//conversion for player y coordinate
+		convertedYplayer = yConverter(playerYValue);
+
+		//find which direction would optimize the distance to the player
+		tempUp = convertedYGhost + 1;
+		tempDown = convertedYGhost - 1;
+		tempLeft = ghostXValue - 1;
+		tempRight = ghostXValue + 1;
+
+		upDistance = distanceCalculator(ghostXValue, tempUp, playerXValue, convertedYplayer);
+		downDistance = distanceCalculator(ghostXValue, tempDown, playerXValue, convertedYplayer);
+		leftDistance = distanceCalculator(tempLeft, convertedYGhost, playerXValue, convertedYplayer);
+		rightDistance = distanceCalculator(tempRight, convertedYGhost, playerXValue, convertedYplayer);
+
+		direction = getMinimum(upDistance, downDistance, leftDistance, rightDistance);
 
 		return direction;
 	}

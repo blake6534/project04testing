@@ -23,8 +23,8 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2059">
-              <caret line="261" column="0" lean-forward="true" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+            <state relative-caret-position="478">
+              <caret line="101" column="67" lean-forward="true" selection-start-line="101" selection-start-column="67" selection-end-line="101" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -188,6 +188,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -288,10 +289,9 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -816,7 +816,8 @@
       <workItem from="1511895888250" duration="1423000" />
       <workItem from="1511897518982" duration="189000" />
       <workItem from="1511898449379" duration="758000" />
-      <workItem from="1511903240083" duration="3688000" />
+      <workItem from="1511903240083" duration="3748000" />
+      <workItem from="1511910370267" duration="1298000" />
     </task>
     <task id="LOCAL-00001" summary="Updated with behavior for defender 0">
       <created>1511471900134</created>
@@ -860,11 +861,18 @@
       <option name="project" value="LOCAL" />
       <updated>1511899019041</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added unique behaviors for each defender, only missing component is taking in information from the maze state!">
+      <created>1511908150085</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1511908150085</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161021000" />
+    <option name="totallyTimeSpent" value="162379000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="38" y="23" width="1242" height="777" extended-state="0" />
@@ -883,7 +891,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1925" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19583334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24979185" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -979,7 +987,8 @@
     <MESSAGE value="cleaned up defender 0 and put unused methods at the bottom" />
     <MESSAGE value="added method headers for defenders[1,3] directions" />
     <MESSAGE value="added method headers for defenders[1,3] directions and method for defender 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="added method headers for defenders[1,3] directions and method for defender 3" />
+    <MESSAGE value="added unique behaviors for each defender, only missing component is taking in information from the maze state!" />
+    <option name="LAST_COMMIT_MESSAGE" value="added unique behaviors for each defender, only missing component is taking in information from the maze state!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1242,8 +1251,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ufl/cs1/controllers/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2059">
-          <caret line="261" column="0" lean-forward="true" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+        <state relative-caret-position="478">
+          <caret line="101" column="67" lean-forward="true" selection-start-line="101" selection-start-column="67" selection-end-line="101" selection-end-column="67" />
           <folding />
         </state>
       </provider>

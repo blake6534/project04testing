@@ -60,6 +60,8 @@ public final class StudentController implements DefenderController
 		int ghostXValue, ghostYValue;		//ghost (x,y)
 		int playerXValue, playerYValue;		//attacker (x,y)
 
+		Maze mazeState = gameState.getCurMaze();
+
 		//for defender (x,y)
 		ghostXValue = gameState.getDefender(ghostNumber).getLocation().getX();
 		ghostYValue = gameState.getDefender(ghostNumber).getLocation().getY();
@@ -86,11 +88,11 @@ public final class StudentController implements DefenderController
 		rightDistance = distanceCalculator(temporaryRight, ghostYValue, playerXValue, playerYValue);
 
 		//small chain to apply the mode (going to / going away from) of the ghosts
-		if(gameState.getDefender(ghostNumber).isVulnerable()) {
-			chosenDirection = getMaximum(upDistance, downDistance, leftDistance, rightDistance);
+		if(!gameState.getDefender(ghostNumber).isVulnerable() || countPowerPills(mazeState)) {
+			chosenDirection = getMinimum(upDistance, downDistance, leftDistance, rightDistance);
 		}
 		else{
-			chosenDirection = getMinimum(upDistance, downDistance, leftDistance, rightDistance);
+			chosenDirection = getMaximum(upDistance, downDistance, leftDistance, rightDistance);
 		}
 
 		return chosenDirection;
@@ -369,6 +371,22 @@ public final class StudentController implements DefenderController
 		}
 
 		return finalAction;
+	}
+
+	//check number of power pills
+	public static boolean countPowerPills(Maze maze){
+		boolean closeIn;
+
+		int numberPowerPills = maze.getNumberPowerPills();
+
+		if(numberPowerPills <= 1){
+			closeIn = true;
+		}
+		else{
+			closeIn = false;
+		}
+
+		return closeIn;
 	}
 
 }
